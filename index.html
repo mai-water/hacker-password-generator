@@ -4,7 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HACKER PASSWORD GEN</title>
+
+  <!-- Favicon (самый простой и надёжный способ) -->
+  <link rel="icon" href="https://i.imgur.com/8zK0jLq.png" type="image/png">
+  <!-- Разные размеры для разных устройств (apple touch icon, etc.) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/8zK0jLq.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/8zK0jLq.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/8zK0jLq.png">
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+
   <style>
     :root {
       --bg: #000;
@@ -15,9 +24,7 @@
       --border: #0a0;
       --glitch: #0f03;
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
-
     body {
       font-family: 'VT323', monospace;
       background: var(--bg);
@@ -29,14 +36,12 @@
       font-size: 1.4rem;
       letter-spacing: 1px;
     }
-
     canvas#matrix {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
     }
-
     .container {
       position: relative;
       z-index: 2;
@@ -44,12 +49,10 @@
       margin: 30px auto;
       padding: 0 20px;
     }
-
     .header {
       text-align: center;
       margin-bottom: 2rem;
     }
-
     .logo-wrapper {
       width: 220px;
       height: 160px;
@@ -61,14 +64,12 @@
       background: #000;
       image-rendering: pixelated;
     }
-
     .logo-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       image-rendering: pixelated;
     }
-
     h1 {
       font-size: 3.2rem;
       color: var(--green);
@@ -76,21 +77,18 @@
       margin-bottom: 0.4rem;
       animation: glitch 4s infinite;
     }
-
     .subtitle {
       color: var(--text-dim);
       font-size: 1.5rem;
       text-shadow: 0 0 6px var(--green-dim);
       margin-bottom: 2.5rem;
     }
-
     @keyframes glitch {
       0%, 100% { transform: translate(0); }
-      2%, 64%  { transform: translate(2px,0) skew(0deg); }
-      4%, 60%  { transform: translate(-2px,0) skew(0deg); }
-      62%      { transform: translate(0,0) skew(5deg); }
+      2%, 64% { transform: translate(2px,0) skew(0deg); }
+      4%, 60% { transform: translate(-2px,0) skew(0deg); }
+      62% { transform: translate(0,0) skew(5deg); }
     }
-
     .terminal-card {
       background: rgba(0,0,0,0.85);
       border: 2px solid var(--green-dim);
@@ -99,13 +97,11 @@
       box-shadow: 0 0 30px var(--glitch), inset 0 0 20px var(--green-dim);
       margin-bottom: 2rem;
     }
-
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.8rem;
     }
-
     label {
       display: block;
       margin-bottom: 0.5rem;
@@ -113,11 +109,9 @@
       font-size: 1.4rem;
       text-shadow: 0 0 5px var(--green);
     }
-
     input[type="number"], input[type="checkbox"] {
       accent-color: var(--green);
     }
-
     input[type="number"] {
       width: 100%;
       padding: 12px 16px;
@@ -129,13 +123,11 @@
       text-shadow: 0 0 4px var(--green);
       box-shadow: inset 0 0 8px var(--green-dim);
     }
-
     input[type="number"]:focus {
       outline: none;
       border-color: var(--green);
       box-shadow: 0 0 15px var(--green), inset 0 0 10px var(--green-dim);
     }
-
     .checkbox-wrapper {
       display: flex;
       align-items: center;
@@ -144,7 +136,6 @@
       color: var(--green);
       text-shadow: 0 0 5px var(--green);
     }
-
     .generate-btn {
       display: block;
       width: 100%;
@@ -162,13 +153,11 @@
       box-shadow: 0 0 20px var(--green);
       transition: all 0.15s;
     }
-
     .generate-btn:hover {
       background: #000;
       color: var(--green);
       box-shadow: 0 0 40px var(--green);
     }
-
     #result {
       background: #000;
       border: 2px solid var(--green-dim);
@@ -186,12 +175,10 @@
       transform: translateY(10px);
       transition: all 0.5s ease;
     }
-
     #result.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
     .copy-btn {
       display: none;
       margin: 1.5rem auto 0;
@@ -206,13 +193,11 @@
       box-shadow: 0 0 15px var(--green);
       transition: all 0.15s;
     }
-
     .copy-btn:hover {
       background: #000;
       color: var(--green);
       box-shadow: 0 0 30px var(--green);
     }
-
     @media (max-width: 600px) {
       h1 { font-size: 2.6rem; }
       .logo-wrapper { width: 160px; height: 120px; }
@@ -260,7 +245,6 @@
 // ─── Matrix digital rain ────────────────────────────────────────
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -272,7 +256,6 @@ window.addEventListener('resize', () => {
 const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/~';
 const fontSize = 16;
 const columns = canvas.width / fontSize;
-
 const drops = Array(Math.floor(columns)).fill(1);
 
 function draw() {
@@ -285,7 +268,6 @@ function draw() {
   drops.forEach((y, i) => {
     const text = chars[Math.floor(Math.random() * chars.length)];
     const x = i * fontSize;
-
     ctx.fillText(text, x, y * fontSize);
 
     if (y * fontSize > canvas.height && Math.random() > 0.975) {
@@ -297,11 +279,11 @@ function draw() {
 
 setInterval(draw, 40);
 
-// ─── Password generator (same logic) ────────────────────────────
+// ─── Password generator ─────────────────────────────────────────
 const letters_lower = "abcdefghijklmnopqrstuvwxyz";
 const letters_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const digits        = "0123456789";
-const special       = "!@#$%^&*()_+-=[]{}|;:,.<>?/~";
+const digits = "0123456789";
+const special = "!@#$%^&*()_+-=[]{}|;:,.<>?/~";
 
 function randomChoice(str) {
   return str[Math.floor(Math.random() * str.length)];
